@@ -1,0 +1,31 @@
+#DAY_2 
+#READING AND FINDING OUT THE METADATA OF THE SHAPEFILE
+import arcpy
+#set environemnt
+arcpy.env.workspace=r"C:\Users\admin\Documents\Shapefiles\Mumbai"  #folder path is given to set the workspace environmnet
+#create a string variable storing a path of shapefile
+featureClass="Mumbai"                                              #folder name has to be given
+
+#this is a describe object which is returned by describe()
+desc=arcpy.Describe(featureClass)
+#SpatialReference attribute returns the spatial reference object 
+spatialRef=desc.SpatialReference
+print(spatialRef.Name)
+
+#display the XY resolution
+print(spatialRef.XYResolution)
+
+#type of resolutoion
+print(spatialRef.type)
+
+#classification: if the shapefile is classified ,i.e, has several classes in the shapefile 
+print(spatialRef.classification)  
+
+if hasattr(desc, "name"):
+    print("Name: "+desc.name)
+if hasattr(desc, "dataType"):
+    print("DataType: "+desc.dataType)
+if hasattr(desc, "catalogPath"):
+    print("Catalog Path: "+desc.catalogPath)
+if hasattr(desc, "extension"):
+    print("Extension: "+desc.extension)
