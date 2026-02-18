@@ -1,0 +1,10 @@
+#READING RASTER FILES
+import arcpy
+arcpy.env
+arcpy.env.cellSize
+arcpy.env.workspace=r"C:\Users\Admin\Documents\Raster_for_arcpy"
+arcpy.env.workspace
+#creating the list of the raster fles present in the folder
+rlist=arcpy.ListRasters("*", "tif")
+print("The list of rasters is:", rlist)
+print("Second file:", rlist[1])
