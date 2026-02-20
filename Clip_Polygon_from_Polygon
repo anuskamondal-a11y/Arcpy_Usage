@@ -1,0 +1,11 @@
+##CLIPPING FEAURES USING ARCPY 
+#set workspace
+import arcpy
+arcpy.env.workspace=r"C:\Users\Documents\Prog. GIS\PGIS_data\Data"     
+#Clipping Polygon from Polygon
+#set local variables
+in_features="Maharashtra.shp"
+clip_features="Pune_District.shp"
+out_feature_class=r"C:\Users\Documents\Prog. GIS\PGIS_data\Output"
+#run clip
+arcpy.analysis.Clip(in_features, clip_features, out_feature_class)
