@@ -1,0 +1,25 @@
+##CLIPPING FEAURES USING ARCPY 
+
+#Clipping Line feature from Polygon
+#set workspace
+import arcpy
+arcpy.env.workspace=r"C:\Users\Documents\Prog. for GIS\Data\Input" 
+#
+#clip river shapefile from maharashtra shapefile
+#set variables
+input_feature=r"C:\Users\Documents\Shapefiles\Rivers\Rivers.shp"
+clip_feature=r"C:\Users\Documents\Prog. for GIS\Data\Mahrashtra.shp"
+output_feature=r"C:\Users\Documents\Prog. for GIS\Data\Output\Clipped_river"
+arcpy.analysis.Clip(input_feature, clip_feature, output_feature)
+
+#Clipping point shp from point shp
+#set workspace
+import arcpy
+arcpy.env.workspace=r"C:\Users\Documents\Prog. for GIS\Data\Input" 
+#
+#Using point of interest shp and extracting Toy shops point shp
+#set variables
+input_=r"C:\Users\Documents\Shapefiles\north-eastern-zone-260218-free.shp\gis_osm_pois_free_1.shp"
+clip_=r"C:\Users\Documents\Shapefiles\Toy_shops"
+output_=r"C:\Users\Documents\Prog. for GIS\Data\Output\Clipped_toy_shops"
+arcpy.analysis.Clip(input_, clip_, output_)
