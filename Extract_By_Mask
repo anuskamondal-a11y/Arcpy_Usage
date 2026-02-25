@@ -3,10 +3,10 @@ import arcpy
 from arcpy.sa import *
 arcpy.env.workspace=r"C:\Users\anusk\Documents\Prog. for Ent GIS\Data"
 #set the varaibles
-inrasters="C:\Users\anusk\Documents\Satellite Imgs\Tripura\LC09_L2SP_136044_20260127_20260128_02_T1_SR_B6.TIF"
-maskraster="C:\Users\anusk\Documents\Shapefiles\Tripura\Tripura.shp"
+inrasters="pune.img"
+maskraster="Boundary.shp"
 outraster=r"C:\Users\anusk\Documents\Prog. for Ent GIS\Output\study_area.img"
 
 #extract by mask
 outraster=ExtractByMask(inrasters, maskraster, "INSIDE")
-outraster.save("C:\Users\anusk\Documents\Prog. for Ent GIS\Output\study_area.img")
+outraster.save(r"C:\Users\anusk\Documents\Prog. for Ent GIS\Output\study_area.img")
