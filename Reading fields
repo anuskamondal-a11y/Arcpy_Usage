@@ -1,0 +1,6 @@
+import arcpy
+featureClass=r"C:\Users\Shapefiles\Bihar\BIHAR_DISTRICT_BDY.shp"
+fieldList=arcpy.ListFields(featureClass)
+#Loop through each field in the list and print the name
+for field in fieldList:
+    print(field.name)
