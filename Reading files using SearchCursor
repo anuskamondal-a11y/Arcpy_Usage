@@ -1,0 +1,16 @@
+import arcpy
+featureClass=r"C:\Users\Shapefiles\Bihar\BIHAR_DISTRICT_BDY.shp"
+fieldList=arcpy.ListFields(featureClass)
+#Loop through each field in the list and print the name
+for field in fieldList:
+    print(field.name)
+#fetches all the rows of the shapefile
+#assigning data to searchcursor
+cursor=arcpy.SearchCursor(featureClass)
+#Go to the first record in the loop
+row=cursor.next()
+#iterate through eacch row
+while row:
+    print("Name of the dstrict:", row.DISTRICT)
+    print("Total area of the district:", row.Shape_area)
+    row=cursor.next()
