@@ -9,8 +9,15 @@ for field in fieldList:
 cursor=arcpy.SearchCursor(featureClass)
 #Go to the first record in the loop
 row=cursor.next()
-#iterate through eacch row
+#iterate through each row
 while row:
     print("Name of the dstrict:", row.DISTRICT)
     print("Total area of the district:", row.Shape_area)
     row=cursor.next()
+fc=r"C:\Users\Shapefiles\Bihar\BIHAR_DISTRICT_BDY.shp"
+fields=['STATE_UT', 'Shape_Area']
+#For each row, print the 
+#Using the searchcursor with a function:
+with arcpy.da.SearchCursor(fc, fields) as cursor:
+    for row in cursor:
+        print("{0}, {1}".format(row[0], row[1]))
