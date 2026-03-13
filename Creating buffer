@@ -1,0 +1,26 @@
+# Import arcpy
+import arcpy
+
+# Create a buffer for polygon geometry
+# Set the workspace
+arcpy.env.workspace = r"C:\Users\Documents\Prog. for Ent GIS\Data"
+
+# Read the cursor
+punecursor = arcpy.da.SearchCursor(
+    r"C:\Users\Documents\Prog. for Ent GIS\Data\Pune_District.shp",
+    ["T_NAME", "SHAPE@"]
+)
+
+# Fetch data from cursor
+print("Taluka Name || Geometry")
+
+for row in punecursor:
+
+    # Read the geometry
+    geometry = row[1]
+
+    # Read the name of taluka
+    name = row[0]
+
+    # Create buffer of 100 feet
+    arcpy.Buffer_analysis(geometry, "Buffer_" + name, "100 Feet")
