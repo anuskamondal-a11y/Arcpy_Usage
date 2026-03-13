@@ -1,0 +1,12 @@
+# Import arcpy
+import arcpy
+
+# Create a buffer for polygon geometry
+# Set the workspace
+arcpy.env.workspace = r"C:\Users\Documents\Prog. for Ent GIS\Data"
+
+# Read the cursor
+puneinsertcursor = arcpy.da.InsertCursor(
+    r"C:\Users\Documents\Prog. for Ent GIS\Data\Pune_District.shp",
+    ["T_NAME", "AREA"])
+puneinsertcursor.insertRow(["NEWTALUKA", 10])
