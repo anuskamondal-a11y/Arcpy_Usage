@@ -1,0 +1,30 @@
+#reading a netwrok file
+network=r"C:\Users\Admin\Documents\Prog. for Ent GIS\Data\Paris.gdb\Transportation\ParisMultimodal_ND"
+#routelayer
+result=arcpy.na.MakeRouteLayer(network, "StationsRoute", "DriveTime")
+route_layer=result.getOutput(0)
+#get sublayer names
+sublayers=arcpy.na.GetNAClassNames(route_layer)
+print(sublayers)
+
+#adding the input stops
+# stops=r"C:\Users\Admin\Documents\Prog. for Ent GIS\Data\Paris.gdb\Transportation\Metro_Stations"
+stops=r"C:\Users\Admin\Documents\Prog. for Ent GIS\Data\Paris.gdb\Metro_stops.shp"
+
+#if your shapefile has a "NAME" field, map it
+if "Name" in [f.name for f in arcpy.ListFields(stops)]:
+    field_mappings["Name"].mappedFieldName="Name"
+
+#reading the STOP layer and Routes layer
+stops_layer=sublayers["Stops"]
+arcpy.na.AddLocations(
+    in_network_analysis_layer=route_layer,
+    sub_layer=stops_layer,
+    in_table=stops,
+    search_tolerance="5000 Meters")
+
+#solve route
+result=arcpy.na.Solve(route_layer, "SKIP")
+print(result.getMessages())
+
+print("Route created successfully")
