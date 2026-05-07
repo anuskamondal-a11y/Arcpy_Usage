@@ -1,1 +1,37 @@
+import arcpy
+# Check out the Network Analyst extension license. If the network extension is available or not
+arcpy.CheckOutExtension("network")
 
+nd_path=r"C:\Users\Data\Paris.gdb\Transportation\ParisMultimodal_ND" #network file
+nd_layer_name="Paris"          #the layer name
+output_polygons=r"C:\Users\Data\Paris.gdb\ServiceArea_Polygons"     #output polygon featureclass
+
+facilities=r"C:\Users\Data\Paris.gdb\Metro_stops.shp" #input
+
+arcpy.nax.MakeNetworkDatasetLayer(nd_path,nd_layer_name)                                              #creating the network layer
+
+service_area=arcpy.nax.ServiceArea(nd_layer_name)                                 #creates a service area object 
+
+nd_travel_modes = arcpy.nax.GetTravelModes(nd_layer_name)            #have to set travel mode when a network layer is created
+travel_mode = nd_travel_modes["Driving Time"] 
+print(nd_travel_modes)
+# Set properties.
+service_area.timeUnits = arcpy.nax.TimeUnits.Minutes
+service_area=arcpy.nax.ServiceArea(nd_layer_name)
+
+nd_travel_modes = arcpy.nax.GetTravelModes(nd_layer_name)
+travel_mode = nd_travel_modes["Driving Time"]
+
+# Set properties (setting the attributes for the service area object)
+service_area.timeUnits = arcpy.nax.TimeUnits.Minutes        #setting the time units in minutes 
+service_area.defaultImpedanceCutoffs = [5, 10, 15]          #impedence as 5,10, 15 minutes
+service_area.travelMode = travel_mode
+service_area.outputType = arcpy.nax.ServiceAreaOutputType.Polygons #output type as polygon
+service_area.geometryAtOverlap = arcpy.nax.ServiceAreaOverlapGeometry.Split
+
+service_area.load(arcpy.nax.ServiceAreaInputDataType.Facilities,facilities)
+
+# Solve the analysis.
+result = service_area.solve()
+result.export(arcpy.nax.ServiceAreaOutputDataType.Polygons, output_polygons)   #to save it
+print("Done")
